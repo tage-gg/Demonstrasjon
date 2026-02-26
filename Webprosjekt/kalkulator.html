@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>kalkulator</title>
+    <link rel="stylesheet" href="kalkulator.css">
+</head>
+
+<body>
+    <button class="hamburger" id="hamburger" aria-label="Åpne meny">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+    <nav class="menu" id="menu">
+        <button class="back-btn" id="back-btn">Lukk</button>
+        <a href="kalkulator.html" class="menu-inner">Kalkulator</a>
+        <a href="treningsplan.html" class="menu-inner">Treningsplan</a>
+        <a href="Handleliste.html" class="menu-inner">Handleliste</a>
+    </nav>
+
+    <div class="box">
+        <h1>Kalkulator</h1>
+        <div>
+            <button class="btn" id="btn-1" value="1">1</button>
+            <button class="btn" id="btn-2" value="2">2</button>
+            <button class="btn" id="btn-3" value="3">3</button>
+        </div>
+        <div>
+            <button class="btn" id="btn-4" value="4">4</button>
+            <button class="btn" id="btn-5" value="5">5</button>
+            <button class="btn" id="btn-6" value="6">6</button>
+        </div>
+        <div>
+            <button class="btn" id="btn-7" value="7">7</button>
+            <button class="btn" id="btn-8" value="8">8</button>
+            <button class="btn" id="btn-9" value="9">9</button>
+        </div>
+        <div>
+            <button class="btn" id="btn-+" value="+">+</button>
+            <button class="btn" id="btn-0" value="0">0</button>
+            <button class="btn" id="btn--" value="-">-</button>
+        </div>
+        <div>
+            <button class="btn" id="btn-*" value="*">*</button>
+            <button class="btn" id="btn-/" value="/">/</button>
+            <button class="btn" id="btn-=" value="=">=</button>
+        </div>
+
+    </div>
+
+    <div class="answer">
+        <div class="display" id="display"></div>
+        <div>
+            <button class="clear-btn" id="clear-btn">Clear</button>
+        </div>
+    </div>
+
+    <script>
+
+        const hamburger = document.getElementById("hamburger");
+        const menu = document.getElementById("menu");
+
+        function showMenu() {
+            hamburger.style.display = "none";
+            menu.style.display = "flex";
+        }
+
+        const backBtn = document.getElementById("back-btn");
+
+        function hideMenu() {
+            hamburger.style.display = "flex";
+            menu.style.display = "none";
+        }
+
+        hamburger.onclick = showMenu;
+        backBtn.onclick = hideMenu;
+
+        const buttons = document.querySelectorAll(".btn");
+        const display = document.getElementById("display");
+        const clearBtn = document.getElementById("clear-btn")
+
+        let currentInput = "";
+
+        buttons.forEach(function (button) {
+
+            button.onclick = function () {
+
+                if (button.value === "=") {
+                    currentInput = eval(currentInput);
+                } else {
+                    currentInput += button.value;
+                }
+
+                display.textContent = currentInput;
+            };
+
+        });
+
+        function clearNumber() {
+            currentInput = "";
+            display.textContent = "";
+        }
+
+        clearBtn.onclick = clearNumber;
+
+    </script>
+
+</body>
+
+</html>

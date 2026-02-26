@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Treningsplan</title>
+    <link rel="stylesheet" href="treningsplan.css">
+</head>
+
+<body>
+
+    <button class="hamburger" id="hamburger" aria-label="Åpne meny">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+    <nav class="menu" id="menu">
+        <button class="back-btn" id="back-btn">Lukk</button>
+        <a href="kalkulator.html" class="menu-inner">Kalkulator</a>
+        <a href="treningsplan.html" class="menu-inner">Treningsplan</a>
+        <a href="Handleliste.html" class="menu-inner">Handleliste</a>
+    </nav>
+    <div class="box">
+        <div>
+            <h1>Treningsplan</h1>
+
+
+            <label class="question1">Hvilket nivå er du på?</label>
+            <input class="search-value" id="search-value" type="text">
+            <input class="search-btn" id="search-btn" type="button" value="Søk">
+            <div class="output-div" id="output-div"></div>
+        </div>
+    </div>
+
+    <script>
+        const hamburger = document.getElementById("hamburger");
+        const menu = document.getElementById("menu");
+        const backBtn = document.getElementById("back-btn");
+
+        function showMenu() {
+            hamburger.style.display = "none";
+            menu.style.display = "flex";
+        }
+        function hideMenu() {
+            hamburger.style.display = "flex";
+            menu.style.display = "none";
+        }
+
+        hamburger.onclick = showMenu;
+        backBtn.onclick = hideMenu;
+
+        const searchValue = document.getElementById("search-value");
+        const searchBtn = document.getElementById("search-btn");
+        let outputDiv = document.getElementById("output-div");
+
+        let beginnerProgram = {
+            level: "Nybegynner 🟢",
+            days: [
+                { day: "Mandag", focus: "Chest & Triceps 📈", exercises: ["Push-ups", "Benkpress lett", "Triceps pushdown", "Planke"] },
+                { day: "⚡ Onsdag", focus: "Rygg & Biceps 📈", exercises: ["Nedtrekk", "Sittende roing", "Biceps curls", "Rygghev"] },
+                { day: "💪 Fredag", focus: "Bein 📈🧨", exercises: ["Knebøy lett", "Leg press", "Leg curl", "Leg extension"] }
+            ]
+        };
+
+        let earlyIntermediateProgram = {
+            level: "Viderekommen 🔵",
+            days: [
+                { day: "💪 Mandag", focus: "Chest & Triceps 🧨", exercises: ["Benkpress", "Skrå hantelpress", "Dips", "Triceps pushdown"] },
+                { day: "Tirsdag", focus: "Rygg & Biceps ⚡", exercises: ["Pull-ups", "Stangroing", "Nedtrekk", "Biceps curls"] },
+                { day: "⚡ Torsdag", focus: "Bein 🏋️", exercises: ["Knebøy", "Rumensk markløft", "Utfall", "Leg curl"] },
+                { day: "Fredag", focus: "Skuldre & Armer 📈", exercises: ["Militærpress", "Sidehev", "Hammer curls", "Dips"] }
+            ]
+        };
+
+        let intermediateProgram = {
+            level: "Avansert 🚀",
+            days: [
+                { day: "🏋️ Mandag", focus: "🧠 Chest & Triceps 🏋️", exercises: ["Benkpress tung", "Dips vekt", "Skrå press", "Fransk press"] },
+                { day: "💪 Tirsdag", focus: "Rygg & Biceps ⚡", exercises: ["Pull-ups vekt", "Markløft", "Roing", "Biceps curls"] },
+                { day: "Onsdag", focus: "Bein 🧠", exercises: ["Knebøy tung", "Hip thrust", "Utfall", "Leg curl"] },
+                { day: "Torsdag", focus: "Chest & Rygg ⚡", exercises: ["Benkpress", "Pull-ups", "Dips", "Roing kabel"] },
+                { day: "💪 Fredag", focus: "Skuldre & Armer 📈", exercises: ["Militærpress", "Sidehev", "Triceps extensions", "Biceps curls"] }
+            ]
+        };
+
+        let advancedProgram = {
+            level: "Pro 🔥",
+            days: [
+                { day: "Mandag", focus: "Push 🧠", exercises: ["Benkpress tung", "Dips vekt", "HSPU progresjon", "Triceps"] },
+                { day: "💪 Tirsdag", focus: "Pull 🏋️", exercises: ["Weighted pull-ups", "Markløft", "Eksplosive pull-ups", "Biceps"] },
+                { day: "Onsdag", focus: "🧠 Bein", exercises: ["Knebøy tung", "Rumensk markløft", "Box jumps", "Leg curl"] },
+                { day: "💪 Torsdag", focus: "Chest & Rygg volum ⚡", exercises: ["Skrå press", "Roing", "Push-ups", "Pull-ups"] },
+                { day: "Fredag", focus: "Armer & Skuldre ⚡", exercises: ["Militærpress", "Sidehev", "Dips", "Curls"] }
+            ]
+        };
+
+        let eliteProgram = {
+            level: "Eliten 👑",
+            days: [
+                { day: "💪 Mandag", focus: "Eksplosiv Pull ⚡🧨", exercises: ["Chest-to-bar pull-ups", "Weighted pull-ups", "Muscle-up progresjon", "Biceps"] },
+                { day: "Tirsdag", focus: "Push power 🧠⚡", exercises: ["Dips vekt", "HSPU", "Benkpress", "Triceps"] },
+                { day: "Onsdag", focus: "🧠 Bein", exercises: ["Knebøy tung", "Box jumps", "Hip thrust", "Nordic curl"] },
+                { day: "Torsdag", focus: "Skill day 🧨😎", exercises: ["Muscle-up teknikk", "False grip hang", "Eksplosive pull-ups", "Core"] },
+                { day: "💪 Fredag", focus: "Overkropp volum ⚡", exercises: ["Pull-ups", "Dips", "Militærpress", "Roing"] }
+            ]
+        };
+
+        let programs = [
+            beginnerProgram,
+            earlyIntermediateProgram,
+            intermediateProgram,
+            advancedProgram,
+            eliteProgram
+        ];
+
+        function showProgram(program) {
+            outputDiv.innerHTML += `<h2>${program.level}</h2>`;
+
+            for (let i = 0; i < program.days.length; i++) {
+                outputDiv.innerHTML += `
+      <h3>${program.days[i].day} - ${program.days[i].focus}</h3>
+      <ul>
+    `;
+
+                for (let j = 0; j < program.days[i].exercises.length; j++) {
+                    outputDiv.innerHTML += `<li>${program.days[i].exercises[j]}</li>`;
+                }
+
+                outputDiv.innerHTML += `</ul>`;
+            }
+        }
+
+        function searchFor() {
+            outputDiv.innerHTML = "";
+
+            let nivå = searchValue.value.toLowerCase().trim();
+
+            let found = false;
+
+            for (let i = 0; i < programs.length; i++) {
+                if (programs[i].level.toLowerCase().includes(nivå)) {
+                    showProgram(programs[i]);
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found) outputDiv.innerHTML = `
+            <h3>Vi har dessverre ikke en plan for dette nivået ❌</h3>
+            <strong>Nivåer vi har nå:</strong>
+            <ul>
+                <li>Nybegynner 📈</li>
+                <li>Viderekommen 🎯</li>
+                <li>Avansert 💪</li>
+                <li>Pro 🏋️</li>
+                <li>Eliten 👑</li>
+            </ul>
+            `;
+        }
+
+        searchBtn.onclick = searchFor;
+        searchValue.addEventListener("keydown", function (event) {
+            if (event.key === "Enter") {
+                searchFor();
+            }
+        });
+
+
+
+
+    </script>
+</body>
+
+
+</html>

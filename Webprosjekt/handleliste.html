@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Handleliste app</title>
+    <link rel="stylesheet" href="handleliste.css">
+
+</head>
+
+<body>
+    <button class="hamburger" id="hamburger" aria-label="Åpne meny">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+    <nav class="menu" id="menu">
+        <button class="back-btn" id="back-btn">Lukk</button>
+        <a href="kalkulator.html" class="menu-inner">Kalkulator</a>
+        <a href="treningsplan.html" class="menu-inner">Treningsplan</a>
+        <a href="Handleliste.html" class="menu-inner">Handleliste</a>
+    </nav>
+    <div class="app">
+        <h1>Handleliste app</h1>
+
+        <label>Hva skal du handle:</label>
+        <input id="butikk-vare" type="text">
+        <input id="legg-til" class="btn-add" type="button" value="Legg til">
+        <input id="fjern-vare" class="btn-remove" type="button" value="Fjern vare">
+
+        <ul class="list" id="output-div"></ul>
+    </div>
+
+
+    <script>
+        const hamburger = document.getElementById("hamburger");
+        const menu = document.getElementById("menu");
+
+        function showMenu() {
+            hamburger.style.display = "none";
+            menu.style.display = "flex";
+        }
+
+        const backBtn = document.getElementById("back-btn");
+
+        function hideMenu() {
+            hamburger.style.display = "flex";
+            menu.style.display = "none";
+        }
+
+        hamburger.onclick = showMenu;
+        backBtn.onclick = hideMenu;
+
+        const butikkVare = document.getElementById("butikk-vare");
+        const leggTil = document.getElementById("legg-til");
+        const fjernVare = document.getElementById("fjern-vare");
+        let outputDiv = document.getElementById("output-div");
+
+        let varer = [];
+
+        function renderList() {
+            outputDiv.innerHTML = "";
+
+            for (let i = 0; i < varer.length; i++) {
+                outputDiv.innerHTML += `
+                    <li><label><input class="list-txt" type="checkbox" name="valg">${varer[i]}</label></li>
+                `;
+            }
+        }
+
+        function pushVare() {
+            varer.push(butikkVare.value);
+            butikkVare.value = "";
+            renderList()
+        }
+
+        function popVare() {
+            varer.pop();
+            renderList()
+        }
+
+        leggTil.onclick = pushVare;
+        fjernVare.onclick = popVare;
+    </script>
+
+</body>
+
+</html>
